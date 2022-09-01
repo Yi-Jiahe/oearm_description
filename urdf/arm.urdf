@@ -1,10 +1,50 @@
 <?xml version="1.0"?>
 <robot name="arm">
+    <material name="aluminium">
+        <color rgba="0.2 0.2 0.2 0.8"/>
+    </material>
+
     <link name="base_link">
         <visual>
             <geometry>
-                <cylinder length="0.6" radius="0.2"/>
+                <cylinder length="0.05" radius="0.05"/>
             </geometry>
+            <material name="aluminium"/>
         </visual>
     </link>
+
+    <link name="link_1">
+        <visual>
+            <geometry>
+                <cylinder length="0.05" radius="0.02"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.05"/>
+            <material name="aluminium"/>
+        </visual>
+    </link>
+
+    <joint name="base_to_1" type="continuous">
+        <parent link="base_link"/>
+        <child link="link_1"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0 0 0.05"/>
+    </joint>
+
+    <link name="link_2">
+        <visual>
+            <geometry>
+                <cylinder length="0.05" radius="0.02"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.05"/>
+            <material name="aluminium"/>
+        </visual>
+    </link>
+
+    <joint name="1_to_2" type="revolute">
+        <parent link="link_1"/>
+        <child link="link_2"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" lower="0.0" upper="1.548" velocity="0.5"/>
+        <origin xyz="0 0 0.05"/>
+    </joint>
 </robot>
